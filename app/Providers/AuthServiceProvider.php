@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Notice;
+use App\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        \App\Notice::class => \App\Policies\NoticePolicy::class,
     ];
 
     /**
@@ -24,6 +27,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        // Gate::define('update-notice', function(User $user, Notice $notice){
+        //     return $user->id == $notice->user_id;
+        // });
 
         //
     }
