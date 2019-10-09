@@ -46,28 +46,25 @@ class User extends Authenticatable
 		return $this->hasAnyRoles($permission->roles);
 	}
 
+	public function hasAnyRoles($roles){
+		// dd($roles);
+		if (is_array($roles) || is_object($roles)) {
+			return !! $roles->intersect($this->roles)->count();
+		}
+
+		return $this->roles->contains('name', $roles);
+	}
+
 	// public function hasAnyRoles($roles){
 	// 	// $this->roles;
 	// 	if (is_array($roles) || is_object($roles)) {
 	// 		foreach ($roles as $role) {
-	// 			// var_dump($role->name);
-	// 			$this->hasAnyRoles($role->name);
+	// 			if ($this->roles->contains('name', $role->name)) {
+	// 				return $this->roles->contains('name', $role->name);
+	// 			}
 	// 		}
 	// 	}
 
-	// 	return $this->roles->contains('name', $roles);
+	// 	return $this->roles->contains('name', $roles->name);
 	// }
-
-	public function hasAnyRoles($roles){
-		// $this->roles;
-		if (is_array($roles) || is_object($roles)) {
-			foreach ($roles as $role) {
-				if ($this->roles->contains('name', $role->name)) {
-					return $this->roles->contains('name', $role->name);
-				}
-			}
-		}
-
-		return $this->roles->contains('name', $roles->name);
-	}
 }

@@ -23,4 +23,8 @@ class NoticePolicy
     public function updateNotice(User $user, Notice $notice){
         return $user->id == $notice->user_id;
     }
+
+    public function before(User $user){
+        $user->name == 'Fernando';
+    }
 }

@@ -39,4 +39,20 @@ class HomeController extends Controller
 
 		return view('update-notice', compact('notice'));
 	}
+
+	public function rolesPermissions(){
+		// return "Roles and permission to User!";
+		$nameUser = auth()->user()->name;
+		echo ("<h1>{$nameUser}</h1>");
+
+		foreach (auth()->user()->roles as $role) {
+			echo "<b>$role->name -> </b>";
+
+			$permissions = $role->permissions;
+
+			foreach ($permissions as $permission) {
+				echo " $permission->name , ";
+			}
+		}
+	}
 }
